@@ -1,0 +1,90 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  --color-navy-950: #0a1330;
+  --color-navy-900: #0e1a3e;
+  --color-navy-800: #132254;
+  --color-navy-700: #182a63;
+  --color-navy-600: #1f3480;
+
+  --color-gold-300: #e8c887;
+  --color-gold-400: #d9b264;
+  --color-gold-500: #c89a49;
+  --color-gold-600: #a97e37;
+  --color-gold-700: #86612a;
+
+  --color-success: #22c55e;
+  --color-danger: #ef4444;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
+}
+
+/* Exact FMDQ navy panel texture (basket-weave of translucent glass squares + grain),
+   rebuilt as a lightweight vector from the brand's bg.svg source. */
+.navy-texture {
+  background-color: #1d326d;
+  background-image: url('/navy-bg.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Gold gradient card: texture pattern + gradient combined into a single
+   background-image so it isn't clobbered by (or doesn't clobber) any
+   Tailwind gradient utilities sharing the property — unlayered custom CSS
+   always wins over @layer utilities in the cascade, regardless of source order. */
+.gold-panel {
+  background-image:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%),
+    linear-gradient(135deg, var(--color-gold-400), var(--color-gold-500) 55%, var(--color-gold-700));
+  background-position: 30px 0, 30px 0, 0 0, 0 0, 0 0;
+  background-size: 60px 60px, 60px 60px, 60px 60px, 60px 60px, 100% 100%;
+}
+
+/* Layered gold accent peeking from behind the auth/app cards */
+.card-lift {
+  position: relative;
+}
+
+.card-lift::after {
+  content: '';
+  position: absolute;
+  inset: 0 12px -10px 12px;
+  z-index: -1;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(120deg, var(--color-gold-400), var(--color-gold-600));
+}
+
+/* Scrollable regions that keep native wheel/touch/keyboard scrolling but hide the scrollbar chrome */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #08060d;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
